@@ -14,6 +14,9 @@ $all_posts = $wpdb->get_results(
     ARRAY_A
 );
 
+
+
+
 if (count($all_posts) > 0) {
 ?>
     <table cellpadding="10">
@@ -36,6 +39,8 @@ if (count($all_posts) > 0) {
                 <td><?php echo $post['post-title'] ?></td>
                 <td><?php echo $post['writer'] ?></td>
                 <td><?php echo $post['reviewer'] ?></td>
+                <td><a href="admin.php?page=editorialCalendar&action=edit&id=<?php echo $post['id']; ?>">Edit</a></td>
+                <td><button type="submit" name="delete">Delete</button></td>
             </tr>
         <?php
         }
