@@ -11,7 +11,10 @@ Version: 1.0
 
 if (is_admin()) {
     require_once plugin_dir_path(__FILE__) . 'admin/admin-menu.php';
+    require_once plugin_dir_path(__FILE__) . 'admin/admin-settings-page.php';
+    require_once plugin_dir_path(__FILE__) . 'admin/admin-register-settings.php';
 }
+
 
 function editorialCalendar_adminpage_style()
 {
