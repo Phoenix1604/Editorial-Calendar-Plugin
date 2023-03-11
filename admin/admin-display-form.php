@@ -20,9 +20,7 @@ if (isset($_POST['btnsubmit'])) {
 
     $action = isset($_GET['action']) ? trim($_GET['action']) : "";
     $id = isset($_GET['id']) ? intval($_GET['id']) : "";
-    var_dump($action);
     if (!empty($action)) {
-        echo "Here In Update";
         $wpdb->update("wp_editorial_calendar", array(
             "occation" => $_POST['occation'],
             "date" => $_POST['date'],
@@ -35,7 +33,6 @@ if (isset($_POST['btnsubmit'])) {
 
         $msg = "Form data updated successfully";
     } else {
-        echo "Here In Insert";
         $wpdb->insert("wp_editorial_calendar", array(
             "occation" => $_POST['occation'],
             "date" => $_POST['date'],
@@ -59,8 +56,7 @@ if (isset($_POST['btnsubmit'])) {
     <p><?php echo $msg; ?></p>
     <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?page=editorialCalendar<?php if (!empty($action)) {
                                                                                                 echo '&action=edit&id=' . $id;
-                                                                                            }
-                                                                                            ?>">
+                                                                                            } ?>">
         <label>Occation</label>
         <input type="text" name="occation" value="<?php echo isset($row_details['occation']) ? $row_details['occation'] : ""; ?>" placeholder="Enter Occation" />
 
@@ -98,7 +94,7 @@ if (isset($_POST['btnsubmit'])) {
         </select>
 
 
-        <button type="submit" name="btnsubmit">Submit</button>
+        <button type="submit" name="btnsubmit" class="button">Submit</button>
     </form>
     <?php require_once plugin_dir_path(__FILE__) . 'admin-display-table.php'; ?>
 </div>
