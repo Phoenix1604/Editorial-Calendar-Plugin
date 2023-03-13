@@ -49,49 +49,60 @@ if (isset($_POST['btnsubmit'])) {
 
 <div class="wrap edcal-wrap">
     <h1 class="page-header">Editorial Calendar</h1>
-    <h2>Add New Occation</h2>
+    <div class="addnew">
+        <h2>Add New Occation</h2>
+        <button class="button" id="open-from">Add New</button>
+    </div>
+
     <p class="updated"><?php echo $msg; ?></p>
-    <form id="edcal-create-occation-form" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?page=editorialCalendar<?php if (!empty($action)) {
-                                                                                                                                echo '&action=edit&id=' . $id;
-                                                                                                                            } ?>">
-        <label>Occation</label>
-        <input type="text" name="occation" value="<?php echo isset($row_details['occation']) ? $row_details['occation'] : ""; ?>" placeholder="Enter Occation" />
+    <div id="popup">
+        <div id="popup-content">
+            <h3>Occation Details</h3>
+            <form id="edcal-create-occation-form" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?page=editorialCalendar<?php if (!empty($action)) {
+                                                                                                                                        echo '&action=edit&id=' . $id;
+                                                                                                                                    } ?>">
+                <label>Occation</label>
+                <input type="text" name="occation" value="<?php echo isset($row_details['occation']) ? $row_details['occation'] : ""; ?>" placeholder="Enter Occation" />
 
-        <label>Date</label>
-        <input type="date" name="date" value="<?php echo isset($row_details['date']) ? $row_details['date'] : ""; ?>" />
+                <label>Date</label>
+                <input type="date" name="date" value="<?php echo isset($row_details['date']) ? $row_details['date'] : ""; ?>" />
 
-        <label>Post Title</label>
-        <input type="text" name="post-title" value="<?php echo isset($row_details['post-title']) ? $row_details['post-title'] : ""; ?>" />
-
-
-        <label>Writer</label>
-        <select id="writer" name="writer">;
-            <?php
-            $users = get_users();
-            $userlist = '';
-
-            foreach ($users as $user) {
-                $userlist .= '<option value="' . $user->display_name . '">' . $user->display_name . '</option>';
-            }
-
-            echo $userlist; ?>
-        </select>
-
-        <label>Reviewer</label>
-        <select id="reviewer" name="reviewer">;
-            <?php
-            $users = get_users(array('role__not_in' => array('author')));
-            $userlist = '';
-
-            foreach ($users as $user) {
-                $userlist .= '<option value="' . $user->display_name . '">' . $user->display_name . '</option>';
-            }
-
-            echo $userlist; ?>
-        </select>
+                <label>Post Title</label>
+                <input type="text" name="post-title" value="<?php echo isset($row_details['post-title']) ? $row_details['post-title'] : ""; ?>" />
 
 
-        <button type="submit" name="btnsubmit" class="button">Submit</button>
-    </form>
+                <label>Writer</label>
+                <select id="writer" name="writer">;
+                    <?php
+                    $users = get_users();
+                    $userlist = '';
+
+                    foreach ($users as $user) {
+                        $userlist .= '<option value="' . $user->display_name . '">' . $user->display_name . '</option>';
+                    }
+
+                    echo $userlist; ?>
+                </select>
+
+                <label>Reviewer</label>
+                <select id="reviewer" name="reviewer">;
+                    <?php
+                    $users = get_users(array('role__not_in' => array('author')));
+                    $userlist = '';
+
+                    foreach ($users as $user) {
+                        $userlist .= '<option value="' . $user->display_name . '">' . $user->display_name . '</option>';
+                    }
+
+                    echo $userlist; ?>
+                </select>
+
+
+                <button type="submit" name="btnsubmit" class="popup-button">Submit</button>
+            </form>
+            <button id="close-popup" class="popup-button">Close Popup</button>
+        </div>
+    </div>
+
     <?php require_once plugin_dir_path(__FILE__) . 'admin-display-table.php'; ?>
 </div>

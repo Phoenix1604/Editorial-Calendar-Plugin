@@ -21,3 +21,9 @@ function editorialCalendar_adminpage_style()
     wp_enqueue_style('editorialCalendar', plugin_dir_url(__FILE__) . 'admin/css/admin-style.css', array(), null, 'screen');
 }
 add_action('admin_enqueue_scripts', 'editorialCalendar_adminpage_style', 20);
+
+function editorialCalendar_adminpage_scripts()
+{
+    wp_enqueue_script('editorialCalendar', plugin_dir_url(__FILE__) . 'admin/js/newoccationpopup.js', array(), null, true);
+}
+add_action('admin_enqueue_scripts', 'editorialCalendar_adminpage_scripts');
