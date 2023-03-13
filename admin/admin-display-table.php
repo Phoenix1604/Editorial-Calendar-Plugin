@@ -8,8 +8,12 @@ global $wpdb;
 $msg = '';
 display_all_posts($wpdb, $msg);
 
-if (isset($_POST['delete'])) {
-    $id = $_POST['occationID'];
+//action and id passed in the url
+$action = isset($_GET['action']) ? trim($_GET['action']) : "";
+$id = isset($_GET['id']) ? intval($_GET['id']) : "";
+
+//check for the action and delete the post
+if (!empty($action) && $action === 'delete') {
     $row_exists = $wpdb->get_row(
         $wpdb->prepare(
             "SELECT * from wp_editorial_calendar WHERE id = %d",
@@ -62,14 +66,8 @@ function display_all_posts($wpdb, $msg)
                     <td><?php echo $post['post-title'] ?></td>
                     <td><?php echo $post['writer'] ?></td>
                     <td><?php echo $post['reviewer'] ?></td>
-                    <td><a href="admin.php?page=editorialCalendar&action=edit&id=<?php echo $post['id']; ?>">Edit</a></td>
-
-                    <td>
-                        <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?page=editorialCalendar">
-                            <input type="hidden" name="occationID" value="<?php echo $post['id'] ?>">
-                            <button type="submit" name="delete">Delete</button>
-                        </form>
-                    </td>
+                    <td><a href="admin.php?page=editorialCalendar&action=edit&id=<?php echo $post['id']; ?>"><span class="dashicons dashicons-edit"></span></a></td>
+                    <td><a href="admin.php?page=editorialCalendar&action=delete&id=<?php echo $post['id']; ?>"><span class="dashicons dashicons-trash"></span></a></td>
                 </tr>
             <?php
             }

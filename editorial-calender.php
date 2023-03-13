@@ -34,14 +34,14 @@ function my_plugin_activate()
     $charset_collate = $wpdb->get_charset_collate();
 
     $sql = "CREATE TABLE $table_name (
-        id INT(11) NOT NULL AUTO_INCREMENT,
-        occation VARCHAR(255) NOT NULL,
-        date DATE NOT NULL,
-        post-title VARCHAR(255) NOT NULL,
-        writer VARCHAR(255) NOT NULL,
-        reviewer VARCHAR(255) NOT NULL
+        `id` INT(11) NOT NULL AUTO_INCREMENT,
+        `occation` VARCHAR(50) NOT NULL,
+        `date` DATE NOT NULL,
+        `post-title` VARCHAR(255) NOT NULL,
+        `writer` VARCHAR(50) NOT NULL,
+        `reviewer` VARCHAR(50) NOT NULL,
         PRIMARY KEY  (id)
-    ) $charset_collate;";
+    )$charset_collate;";
 
     require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
     dbDelta($sql);

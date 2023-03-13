@@ -50,7 +50,7 @@ if (isset($_POST['btnsubmit'])) {
 }
 ?>
 
-<div class="wrap">
+<div class="wrap edcal-wrap">
     <h1 class="page-header">Editorial Calendar</h1>
     <h2>Add New Occation</h2>
     <p><?php echo $msg; ?></p>
