@@ -24,7 +24,7 @@ function editorialCalendar_add_toplevel_menu()
         'manage_options',
         'editorialCalendar',
         'editorialCalendar_display_settings_page',
-        'dashicons-media-code',
+        'dashicons-calendar-alt',
         100
     );
 }
