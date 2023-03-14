@@ -1,15 +1,23 @@
 <?php
-global $wpdb;
 $msg = '';
 
 
-
+//check if action and id is present in the url
 $action = isset($_GET['action']) ? trim($_GET['action']) : "";
 $id = isset($_GET['id']) ? intval($_GET['id']) : "";
+
+//Retreving the data from options table and unserialize
 $occations = get_option('edcal_occation_content', array());
 $unserialized_occations = unserialize($occations);
 if ($id !== "" && $action === 'edit') {
-    $row_details = $unserialized_occations[$id];
+    $row_details = $unserialized_occations[$id]; //particular row inside the row
+    if ($row_details === null) { // if the id doesn't exist then redirect to the admin main page
+?>
+        <script>
+            location.href = "<?php echo site_url() ?>/wp-admin/admin.php?page=editorialCalendar";
+        </script>
+    <?php
+    }
 }
 
 

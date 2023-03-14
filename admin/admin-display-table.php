@@ -56,7 +56,7 @@ function display_all_posts($msg)
                 <td><?php echo $post['post-title'] ?></td>
                 <td><?php echo $post['writer'] ?></td>
                 <td><?php echo $post['reviewer'] ?></td>
-                <td><a href="admin.php?page=editorialCalendar&action=edit&id=<?php echo $index; ?>"><span class="dashicons dashicons-edit"></span></a></td>
+                <td><a href="admin.php?page=editorialCalendar&action=edit&id=<?php echo $index; ?>" id="editOccation"><span class="dashicons dashicons-edit"></span></a></td>
                 <td><a href="admin.php?page=editorialCalendar&action=delete&id=<?php echo $index ?>"><span class="dashicons dashicons-trash"></span></a></td>
             </tr>
         <?php
