@@ -8,9 +8,12 @@ $id = isset($_GET['id']) ? intval($_GET['id']) : "";
 
 //Retreving the data from options table and unserialize
 $occations = get_option('edcal_occation_content', array());
-$unserialized_occations = unserialize($occations);
+if (!empty($occations)) {
+    $occations = unserialize($occations);
+}
+
 if ($id !== "" && $action === 'edit') {
-    $row_details = $unserialized_occations[$id]; //particular row inside the row
+    $row_details = $occations[$id]; //particular row inside the row
     if ($row_details === null) { // if the id doesn't exist then redirect to the admin main page
 ?>
         <script>
@@ -35,16 +38,18 @@ if (isset($_POST['btnsubmit'])) {
     );
 
     $occations = get_option('edcal_occation_content', array());
-    $unserialized_occations = unserialize($occations); //unserialize to get the array
+    if (!empty($occations)) {
+        $occations = unserialize($occations);
+    } //unserialize to get the array
     if (!empty($action)) {
-        $unserialized_occations[$id] = $postDetails;
+        $occations[$id] = $postDetails;
         $msg = "Form data updated successfully";
     } else {
-        $unserialized_occations[] = $postDetails;
+        $occations[] = $postDetails;
         $msg = "Form data added successfully";
     }
 
-    $serialized_occations = serialize($unserialized_occations);
+    $serialized_occations = serialize($occations);
 
     // Store the serialized object in the WordPress database
     update_option('edcal_occation_content', $serialized_occations); ?>
@@ -69,46 +74,51 @@ if (isset($_POST['btnsubmit'])) {
             <form id="edcal-create-occation-form" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?page=editorialCalendar<?php if (!empty($action)) {
                                                                                                                                         echo '&action=edit&id=' . $id;
                                                                                                                                     } ?>">
-                <label>Occation</label>
-                <input type="text" name="occation" value="<?php echo isset($row_details['occation']) ? $row_details['occation'] : ""; ?>" placeholder="Enter Occation" />
+                <div class="input-box">
+                    <label>Occation</label>
+                    <input type="text" name="occation" value="<?php echo isset($row_details['occation']) ? $row_details['occation'] : ""; ?>" placeholder="Occation Name" />
+                </div>
 
-                <label>Date</label>
-                <input type="date" name="date" value="<?php echo isset($row_details['date']) ? $row_details['date'] : ""; ?>" />
+                <div class="input-box">
+                    <label>Date</label>
+                    <input id="date" type="date" name="date" value="<?php echo isset($row_details['date']) ? $row_details['date'] : ""; ?>" />
+                </div>
 
-                <label>Post Title</label>
-                <input type="text" name="post-title" value="<?php echo isset($row_details['post-title']) ? $row_details['post-title'] : ""; ?>" />
+                <div class="input-box">
+                    <label>Post Title</label>
+                    <input type="text" name="post-title" value="<?php echo isset($row_details['post-title']) ? $row_details['post-title'] : ""; ?>" placeholder="Post Title" />
+                </div>
+                <div class="input-box">
+                    <label>Writer</label>
+                    <select id="writer" name="writer">;
+                        <?php
+                        $users = get_users();
+                        $userlist = '';
 
+                        foreach ($users as $user) {
+                            $userlist .= '<option value="' . $user->display_name . '">' . $user->display_name . '</option>';
+                        }
 
-                <label>Writer</label>
-                <select id="writer" name="writer">;
-                    <?php
-                    $users = get_users();
-                    $userlist = '';
+                        echo $userlist; ?>
+                    </select>
+                </div>
+                <div class="input-box">
+                    <label>Reviewer</label>
+                    <select id="reviewer" name="reviewer">;
+                        <?php
+                        $users = get_users(array('role__not_in' => array('author')));
+                        $userlist = '';
 
-                    foreach ($users as $user) {
-                        $userlist .= '<option value="' . $user->display_name . '">' . $user->display_name . '</option>';
-                    }
+                        foreach ($users as $user) {
+                            $userlist .= '<option value="' . $user->display_name . '">' . $user->display_name . '</option>';
+                        }
 
-                    echo $userlist; ?>
-                </select>
-
-                <label>Reviewer</label>
-                <select id="reviewer" name="reviewer">;
-                    <?php
-                    $users = get_users(array('role__not_in' => array('author')));
-                    $userlist = '';
-
-                    foreach ($users as $user) {
-                        $userlist .= '<option value="' . $user->display_name . '">' . $user->display_name . '</option>';
-                    }
-
-                    echo $userlist; ?>
-                </select>
-
-
-                <button type="submit" name="btnsubmit" class="popup-button">Submit</button>
+                        echo $userlist; ?>
+                    </select>
+                </div>
+                <button type="submit" name="btnsubmit" class="popup-button add-button">Submit</button>
             </form>
-            <button id="close-popup" class="popup-button">Close Popup</button>
+            <button id="close-popup" class="popup-button close-button">Close</button>
         </div>
     </div>
 
