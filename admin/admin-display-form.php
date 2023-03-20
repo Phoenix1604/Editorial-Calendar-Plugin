@@ -64,7 +64,7 @@ if (isset($_POST['btnsubmit'])) {
     <h1 class="page-header">Editorial Calendar</h1>
     <div class="addnew">
         <h2>Add New Occation</h2>
-        <button class="button" id="open-from">Add New</button>
+        <span class="dashicons dashicons-plus" id="open-from"></span>
     </div>
 
     <p class="updated"><?php echo $msg; ?></p>

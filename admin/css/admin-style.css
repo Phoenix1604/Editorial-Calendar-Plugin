@@ -48,6 +48,21 @@
     font-size: 1.2rem;
 }
 
+.addnew {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+}
+
+.dashicons {
+    cursor: pointer;
+    color: #0077b6;
+}
+
+.dashicons:hover {
+    color: #03045e;
+}
+
 #edcal-create-occation-form {
     display: flex;
     flex-direction: column;
